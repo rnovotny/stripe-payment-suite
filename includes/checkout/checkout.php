@@ -17,38 +17,62 @@ function rn_sps_register_scripts() {
 add_action( 'init', 'rn_sps_register_scripts' ); 
 
 function rn_sps_checkout_shortcode( $atts ){
-
+	if( !empty( $_POST['stripeToken'] ) ) {
+		rn_sps_do_checkout();
+	}
 	$text = empty( $atts['text'] ) ? 'Checkout' : sanitize_text_field( $atts['text'] );
-	$class = empty( $atts['class'] ) ? '' : sanitize_text_field( $atts['class'] );
-	$price_id = empty( $atts['price_id'] ) ? '' : sanitize_text_field( $atts['price_id'] );
+	
+	$name = get_option( 'rn_sps_name' );	
+	$price = get_option( 'rn_sps_price' );		
+	$currency = get_option( 'rn_sps_currency' );
+	$require_name = get_option( 'rn_sps_require_name' );
+	$require_email = get_option( 'rn_sps_require_email' );
+	$require_phone = get_option( 'rn_sps_require_phone' );	
+	$require_address = get_option( 'rn_sps_require_address' );	
+	$require_note = get_option( 'rn_sps_require_note' );
 	
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'rn_sps_stripe' );
 	wp_enqueue_script( 'rn_sps_checkout' );
+	ob_start();
+	?>
 	
-	
-	if( !empty( $price_id ) ) {
-		return "<button class='payment-suite-checkout $class' data-price_id='$price_id'>$text</button>";
-	}
-	return "<button class='payment-suite-checkout $class' >$text</button>";
+	<form class='payment-suite-checkout' action="" method="post" >
+		<h2><?php echo $name . ' - ' . $price . ' ' . $currency ?></h2>
+		<?php if ( $require_name ) {
+			echo "<input type='text' name='rn_sps_name' placeholder='Jane Doe' required>";
+		} ?>
+		<?php if ( $require_email ) {
+			echo "<input type='email' name='rn_sps_email' placeholder='jane@doe.com' required>";
+		} ?>
+		<?php if ( $require_phone ) {
+			echo "<input type='tel' name='rn_sps_phone' placeholder='1-555-867-5309' required>";
+		} ?>	
+		<?php if ( $require_address ) {
+			echo "<input type='text' name='rn_sps_address' placeholder='Address' required>";
+		} ?>	
+		<?php if ( $require_note ) {
+			echo "<textarea name='rn_sps_description' required></textarea>";
+		} ?>
+		<div id="card-element"></div>
+		<div id="card-errors" role="alert"></div>
+		<button type='submit' id='payment-suite-submit-button' style='display:none;'></button>
+		<button type='button' id='payment-suite-checkout-button'><?php echo $price . ' ' . $currency ?></button>
+		<?php wp_nonce_field( 'fca_ssp_checkout', 'fca_ssp_checkout_nonce' ) ?>
+	</form>
+	<?php
+	return ob_get_clean();
 	
 }
 add_shortcode( 'stripe_checkout', 'rn_sps_checkout_shortcode' );
 
-function rn_sps_checkout(){
-	$nonce = empty( $_POST['nonce'] ) ? '' : sanitize_text_field( $_POST['nonce'] );
-	$price_id = empty( $_POST['price_id'] ) ? '' : sanitize_text_field( $_POST['price_id'] );
+function rn_sps_do_checkout() {
+	$nonce = empty( $_POST['fca_ssp_checkout_nonce'] ) ? '' : sanitize_text_field( $_POST['fca_ssp_checkout_nonce'] );
 	
-	if( !wp_verify_nonce(  $nonce, 'rn_sps_checkout_nonce' ) ) {
-		wp_send_json_error( 'Invalid authentication. Please refresh the page and try again.' );
+	if( !wp_verify_nonce(  $nonce, 'fca_ssp_checkout' ) ) {
+		wp_die( 'Invalid authentication. Please refresh the page and try again.' );
 	}
 	
-	$session_id = rn_sps_stripe_create_session( $price_id );
-		
-	if( $session_id ) {
-		wp_send_json_success( $session_id );
-	}
-	wp_send_json_error();
+	$customer = rn_sps_create_stripe_customer();
+	$charge = rn_sps_create_stripe_charge( $customer ); 
 }
-add_action( 'wp_ajax_nopriv_rn_sps_checkout', 'rn_sps_checkout' );
-add_action( 'wp_ajax_rn_sps_checkout', 'rn_sps_checkout' );

@@ -18,6 +18,8 @@ define( 'RN_SPS_PLUGINS_BASENAME', plugin_basename(__FILE__) );
 	
 //LOAD CORE
 include_once( RN_SPS_PLUGIN_DIR . '/includes/functions.php' );
-include_once( RN_SPS_PLUGIN_DIR . '/includes/admin/admin.php' );
+include_once( RN_SPS_PLUGIN_DIR . '/includes/admin/dashboard.php' );
+include_once( RN_SPS_PLUGIN_DIR . '/includes/admin/checkout.php' );
+include_once( RN_SPS_PLUGIN_DIR . '/includes/admin/settings.php' );
 include_once( RN_SPS_PLUGIN_DIR . '/includes/checkout/checkout.php' );
 
