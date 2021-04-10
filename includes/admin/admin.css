@@ -1,0 +1,42 @@
+.rn-sps-payments-cards {
+	font-family: sans-serif;
+	max-width: 800px;
+}
+
+.rn-sps-payments-cards .rn-sps-card-heading {
+	padding: 24px;
+}
+
+.rn-sps-payments-cards .rn-sps-card {
+	display: inline-block;
+	padding: 24px;
+	background-color: white;
+	text-decoration:none;
+	margin-bottom: 10px;
+	color: #718098;
+	border-radius: 10px;
+}
+
+.rn-sps-payments-cards .rn-sps-card:hover {
+	background-color: #3a92ff;
+	color: white;
+}
+
+.rn-sps-payments-cards .rn-sps-card-heading > span,
+.rn-sps-payments-cards .rn-sps-card > span{
+
+	display: inline-block;
+	min-width: 100px;
+}
+
+.rn-sps-payments-cards .rn-sps-card > span.dashicons-external{
+
+	min-width: 0;
+}
+
+
+.rn-sps-payments-cards .rn-sps-card-heading > span.doublewidth,
+.rn-sps-payments-cards .rn-sps-card > span.doublewidth {
+
+	min-width: 200px;
+}

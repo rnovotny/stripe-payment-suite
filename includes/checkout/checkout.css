@@ -1,0 +1,116 @@
+div#payment-suite-checkout {
+	font-size: 18px;
+	font-family: sans-serif;
+	background-color: white;
+}
+div#payment-suite-checkout .payment-suite-heading {
+	line-height: 1.5;
+	background-color: #3a92ff;
+	color: white;
+	font-size: 28px;	
+	border-radius: 10px 10px 0 0;
+	padding: 42px;
+}
+div#payment-suite-checkout .payment-suite-heading .heading-name {
+	font-size: 32px;
+	font-weight: bold;
+}
+
+div#payment-suite-checkout .payment-suite-heading .heading-description {
+	color: 	#B0D3FF;
+	display: block;
+}
+
+div#payment-suite-checkout .payment-suite-heading .heading-price {
+	float: right;
+}
+
+div#payment-suite-checkout .heading-poweredby {
+	font-size: 18px;
+	margin-top: 88px;
+	text-align: right;
+	font-weight: normal;
+}
+
+div#payment-suite-checkout .heading-poweredby .stripe-logo {
+	max-width: 120px;
+	vertical-align: middle;
+}
+
+div#payment-suite-checkout form.payment-suite-form {
+	max-width: 500px;
+	margin: 64px auto;
+	line-height: 1.6;
+}
+
+div#payment-suite-checkout form.payment-suite-form button#payment-suite-checkout-button {
+	color: white;
+	padding: 18px;
+	font-size: 18px;
+	font-weight: bold;
+	width: 100%;
+	background-color: #3a92ff;
+	border: 0;
+	border-radius: 6px;
+	margin-top: 20px;
+}
+
+div#payment-suite-checkout form.payment-suite-form  input.payment-suite-input,
+div#payment-suite-checkout form.payment-suite-form  textarea.payment-suite-input,
+div#payment-suite-checkout form.payment-suite-form  #card-input {
+	font-size: 18px;
+	padding: 24px 28px;
+	margin: 0 0 20px 0;
+	background-color: white;
+	color: black;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+}
+
+div#payment-suite-checkout form.payment-suite-form  textarea.payment-suite-input {
+	
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	color: #cccccc;
+	opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color: #cccccc;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+	color: #cccccc;
+}
+
+@media( max-width: 769px ) {
+	div#payment-suite-checkout .payment-suite-heading {
+		padding: 32px;		
+		font-size: 24px;		
+	}	
+	div#payment-suite-checkout .payment-suite-heading .heading-name {
+		font-size: 26px;
+	}	
+	div#payment-suite-checkout form.payment-suite-form {
+		margin: 32px;		
+	}	
+	
+	div#payment-suite-checkout form.payment-suite-form  input.payment-suite-input,
+	div#payment-suite-checkout form.payment-suite-form  textarea.payment-suite-input,
+	div#payment-suite-checkout form.payment-suite-form  #card-input {
+		padding: 20px;
+		font-size: 16px;
+	}	
+	div#payment-suite-checkout .heading-poweredby {
+		font-size: 16px;
+		margin-top: 32px;
+		text-align: center;
+	}
+	div#payment-suite-checkout .heading-poweredby .stripe-logo {
+		max-width: 111px;
+	}	
+	div#payment-suite-checkout form.payment-suite-form button#payment-suite-checkout-button {		
+		margin-top: 12px;
+	}
+}

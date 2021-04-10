@@ -6,8 +6,8 @@
 	  base: {
 		// Add your base input styles here. For example:
 		"fontSize": "18px",
-		"color": "#32325d",
-		"lineHeight": "1.33"
+		"backgroundColor": "#ffffff",
+		"padding": "24px",
 	  }
 	}
 	var elements = stripe.elements()
